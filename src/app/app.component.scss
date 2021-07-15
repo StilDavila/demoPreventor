@@ -1,0 +1,20 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .example-form {
+    width: 320px;
+  }
+}
+
+.prev-mat-chip {
+  background-color: blue;
+  color: white;
+
+  &-cancel{
+    color: red;
+  }
+}
