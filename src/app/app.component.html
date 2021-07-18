@@ -2,7 +2,7 @@
   <mat-form-field class="example-form" appearance="outline">
     <mat-label>Clearable input</mat-label>
     <input matInput type="text" [(ngModel)]="value" />
-    <button
+    <!-- <button
       *ngIf="value"
       matSuffix
       mat-icon-button
@@ -10,7 +10,7 @@
       (click)="value = ''"
     >
       <mat-icon>close</mat-icon>
-    </button>
+    </button> -->
   </mat-form-field>
 
   <mat-form-field class="example-form" appearance="outline">
@@ -24,7 +24,9 @@
         class="prev-mat-chip"
       >
         {{ fruit }}
-        <mat-icon matChipRemove *ngIf="removable" class="prev-mat-chip-cancel">cancel</mat-icon>
+        <mat-icon matChipRemove *ngIf="removable" class="prev-mat-chip-cancel"
+          >cancel</mat-icon
+        >
       </mat-chip>
       <input
         placeholder="New fruit..."
@@ -64,8 +66,64 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
+  {{ fruits | json }}
 </div>
+<button (click)="openDialog('XD')">Filters</button>
+<button (click)="onShowDialog($event)">Filters 2</button>
+<span class="material-icons">face</span>
 
+<div class="card__container">
+  <div class="pvt-card">
+    <div class="pvt-card__header">
+      <div class="finger-id">
+        <div class="finger-id__icon">
+          <span class="material-icons finger-icon"> fingerprint </span>
+        </div>
+        <div class="finger-id__serial">
+          <span>635aad33-05e8-433b-9504-8293587800d4 </span>
+          <span class="material-icons copy-icon"> content_copy </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="pvt-card__data">
+      <div class="pvt-card__data-image">
+        <span class="material-icons person-icon"> person </span>
+        <!-- <span class="material-icons-outlined">
+            person
+            </span> -->
+      </div>
+      <div class="pvt-card__data-information">
+        <span>HEATHER CLARK</span>
+        <div class="auth-information">
+          <div class="tag-serial">
+            <span>635aad33-05e8-433b-9504-8293587800d4 </span>
+            <span class="material-icons copy-icon"> content_copy </span>
+          </div>
+
+          <div class="tag-auth">
+            <span class="material-icons tag-auth-icon"> inventory </span>
+            <span>Digital onboarding</span>
+          </div>
+        
+          <div class="tag-auth">
+            <span class="material-icons tag-auth-icon"> inventory </span>
+            <span>Digital onboarding</span>
+          </div>
+
+          <div class="tag-auth">
+            <span class="material-icons tag-auth-icon"> inventory </span>
+            <span>Digital onboarding</span>
+          </div>
+
+          <div class="tag-auth">
+            <span class="material-icons tag-auth-icon"> inventory </span>
+            <span>Digital onboarding</span>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <!-- {{chipList | json}} -->
-
-{{ fruits | json }}

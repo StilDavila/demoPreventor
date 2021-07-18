@@ -5,6 +5,8 @@ import { FormControl } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { FilterComponent } from './filter/filter.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-root',
@@ -17,14 +19,14 @@ export class AppComponent {
   selectable = true;
   removable = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
-  fruitCtrl = new FormControl();
+  fruitCtrl = new FormControl('');
   filteredFruits: Observable<string[]>;
-  fruits: string[] = ['Lemon'];
+  fruits: string[] = [];
   allFruits = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
 
   @ViewChild('fruitInput') fruitInput: ElementRef<HTMLInputElement>;
 
-  constructor() {
+  constructor(public dialog: MatDialog) {
     this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
       startWith(null),
       map((fruit: string | null) =>
@@ -43,7 +45,7 @@ export class AppComponent {
     }
 
     // Clear the input value
-    event.input.value = "";
+    event.input.value = '';
     // event.chipInput!.clear();
 
     this.fruitCtrl.setValue(null);
@@ -59,7 +61,8 @@ export class AppComponent {
 
   selected(event: MatAutocompleteSelectedEvent): void {
     console.log(event);
-    this.fruits.push(event.option.viewValue);
+    if (!this.fruits.includes(event.option.value))
+      this.fruits.push(event.option.value);
     this.fruitInput.nativeElement.value = '';
     this.fruitCtrl.setValue(null);
   }
@@ -70,5 +73,25 @@ export class AppComponent {
     return this.allFruits.filter((fruit) =>
       fruit.toLowerCase().includes(filterValue)
     );
+  }
+
+  openDialog(errore: string): void {
+    let dialogRef = this.dialog.open(FilterComponent, {
+      width: '80%',
+      height: '300px',
+      data: { error: errore },
+      panelClass: 'custom-modalbox',
+    });
+  }
+
+  onShowDialog(evt: MouseEvent): void {
+    const target = new ElementRef(evt.currentTarget);
+    const dialogRef = this.dialog.open(FilterComponent, {
+      data: { trigger: target },
+      backdropClass: 'no-backdrop',
+    });
+    dialogRef.afterClosed().subscribe((_res) => {
+      console.log(_res);
+    });
   }
 }
